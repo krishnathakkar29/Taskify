@@ -1,10 +1,10 @@
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import Header from "@/components/Header";
-import { ClerkProvider } from "@clerk/nextjs";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +31,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+          className={cn(
+            "min-h-screen antialiased",
+            `${geistSans.variable} ${geistMono.variable}  `
+          )}
         >
           <ThemeProvider
             attribute="class"
@@ -39,10 +42,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-           
-              <Header />
-              <main className="h-full mt-24">{children}</main>
-            {/* </BackgroundBeamsWithCollision> */}
+            {/* <Header /> */}
+            <Navbar />
+            <main className="h-full mt-24">{children}</main>
           </ThemeProvider>
         </body>
       </html>

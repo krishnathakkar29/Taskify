@@ -75,6 +75,9 @@ body {
   .gradient-title {
     @apply font-extrabold bg-gradient-to-br from-blue-600 to-blue-400 bg-clip-text tracking-tighter text-transparent pb-4 pr-2;
   }
+  .wrapper {
+    @apply h-full w-full max-w-7xl px-4 py-4 md:px-12 lg:mx-auto xl:max-w-[90rem];
+  }
 }
 
 @layer utilities {

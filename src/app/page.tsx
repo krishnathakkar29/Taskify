@@ -71,6 +71,7 @@ const faqs = [
 ];
 
 export default function Home() {
+
   return (
     <BackgroundBeamsWithCollision>
       <div className="min-h-screen">
@@ -108,13 +109,13 @@ export default function Home() {
             </h3>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {features.map((feature, index) => (
-                <Card key={index} className="bg-gray-800 py-8">
+                <Card key={index} className="dark:bg-gray-800 py-8">
                   <CardContent className="pt-6">
                     <feature.icon className="h-12 w-12 mb-4 text-blue-300" />
                     <h4 className="text-xl font-semibold mb-2">
                       {feature.title}
                     </h4>
-                    <p className="text-gray-300">{feature.description}</p>
+                    <p className="dark:text-gray-300">{feature.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -138,7 +139,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-20 text-center px-5 bg-gray-900/30 ">
+        <section className="py-20 text-center px-5 dark:bg-gray-900/30 ">
           <div className="container mx-auto">
             <h3 className="text-3xl font-bold mb-6">
               Ready to Transform Your Workflow?
