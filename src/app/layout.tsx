@@ -32,7 +32,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
-            "min-h-screen antialiased",
+            "min-h-screen antialiased ",
             `${geistSans.variable} ${geistMono.variable}  `
           )}
         >
@@ -42,9 +42,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* <Header /> */}
             <Navbar />
-            <main className="h-full mt-24">{children}</main>
+            <main className="h-full pt-32">{children}</main>
           </ThemeProvider>
         </body>
       </html>

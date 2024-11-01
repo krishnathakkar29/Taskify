@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const features = [
   {
@@ -71,10 +72,9 @@ const faqs = [
 ];
 
 export default function Home() {
-
   return (
-    <BackgroundBeamsWithCollision>
-      <div className="min-h-screen">
+    <div className="min-h-screen  ">
+        <BackgroundBeamsWithCollision>
         <section className="flex flex-col items-center w-full justify-center h-[70vh]">
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-extrabold  pb-6 flex flex-col font-sans tracking-tight">
             Streamline your
@@ -145,7 +145,7 @@ export default function Home() {
               Ready to Transform Your Workflow?
             </h3>
             <p className="text-xl mb-12">
-              Join thousands of teams already using ZCRUM to streamline their
+              Join thousands of teams already using Taskify to streamline their
               projects and boost productivity.
             </p>
             <Link href="/onboarding">
@@ -155,7 +155,7 @@ export default function Home() {
             </Link>
           </div>
         </section>
-      </div>
     </BackgroundBeamsWithCollision>
+      </div>
   );
 }

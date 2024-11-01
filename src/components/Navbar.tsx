@@ -1,11 +1,11 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { Button } from "./ui/button";
-import { PenBox } from "lucide-react";
-import ThemeToggle from "./theme-toggle";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { AnimatePresence, motion } from "framer-motion";
+import { PenBox } from "lucide-react";
+import Link from "next/link";
+import ThemeToggle from "./theme-toggle";
+import { Button } from "./ui/button";
 import UserMenu from "./UserMenu";
 
 type Props = {};
@@ -23,6 +23,9 @@ const Navbar = (props: Props) => {
       },
     }),
   };
+
+  
+
   return (
     <AnimatePresence>
       <motion.nav
