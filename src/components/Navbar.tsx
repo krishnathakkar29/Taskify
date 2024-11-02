@@ -7,6 +7,7 @@ import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
 import { Button } from "./ui/button";
 import UserMenu from "./UserMenu";
+import UserLoading from "./user-loading";
 
 type Props = {};
 
@@ -23,8 +24,6 @@ const Navbar = (props: Props) => {
       },
     }),
   };
-
-  
 
   return (
     <AnimatePresence>
@@ -66,6 +65,7 @@ const Navbar = (props: Props) => {
             <ThemeToggle />
           </motion.div>
         </div>
+        <UserLoading />
       </motion.nav>
     </AnimatePresence>
   );
