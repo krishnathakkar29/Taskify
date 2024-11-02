@@ -3,14 +3,14 @@ import { getOrganization } from "../../../../../actions/organization";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import OrgSwitcher from "@/components/org-switcher";
-
-type Props = {
-  params: any;
+import ProjectList from "@/components/Projects/project-list";
+type Params = {
+  orgId: string;
 };
 
-const page = async ({ params }: Props) => {
-  const { orgId } = await params;
+const page = async ({ params }: { params: Params }) => {
   const { userId } = await auth();
+  const { orgId } = await params;
   const organization = await getOrganization(orgId);
 
   if (!userId) {
@@ -29,12 +29,10 @@ const page = async ({ params }: Props) => {
 
         <OrgSwitcher />
       </div>
-      {/* <div className="mb-4">
+      <div className="mb-4">
         <ProjectList orgId={organization.id} />
       </div>
-      <div className="mt-8">
-        <UserIssues userId={userId} />
-      </div> */}
+      <div className="mt-8">{/* <UserIssues userId={userId} /> */}</div>
     </div>
   );
 };
