@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db";
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { userValidation } from "./project";
 
 export async function getOrganization(orgId: string) {
   const { userId } = await auth();
@@ -39,4 +40,25 @@ export async function getOrganization(orgId: string) {
   }
 
   return organizationReceived;
+}
+
+export async function fetchProjects(orgId: string) {
+  const { userId } = await auth();
+  try {
+    await userValidation(userId);
+
+    const projects = await prisma.project.findMany({
+      where: {
+        organizationId: orgId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return projects;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error("Error getting project: " + error.message);
+  }
 }

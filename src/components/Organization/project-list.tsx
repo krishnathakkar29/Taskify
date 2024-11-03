@@ -1,8 +1,8 @@
 import React from "react";
-import { fetchProjects } from "../../../actions/project";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import DeleteProject from "./delete-project";
+import { fetchProjects } from "../../../actions/organization";
 
 type Props = {
   orgId: string;
@@ -14,7 +14,7 @@ const ProjectList = async ({ orgId }: Props) => {
   if (projects.length === 0) {
     return (
       <p>
-        No projects found.{" "}
+        No projects found.
         <Link
           className="underline underline-offset-2 text-blue-200"
           href="/project/create"

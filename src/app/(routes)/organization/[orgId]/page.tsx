@@ -3,7 +3,7 @@ import { getOrganization } from "../../../../../actions/organization";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import OrgSwitcher from "@/components/org-switcher";
-import ProjectList from "@/components/Projects/project-list";
+import ProjectList from "@/components/Organization/project-list";
 type Params = {
   orgId: string;
 };

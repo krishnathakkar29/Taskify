@@ -3,8 +3,9 @@
 import { prisma } from "@/lib/db";
 import { CreateProjectType } from "@/types/Project";
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { Project } from "@prisma/client";
 
-const userValidation = async (userId: string | null) => {
+export const userValidation = async (userId: string | null) => {
   if (!userId) {
     throw new Error("Unauthorized");
   }
@@ -64,24 +65,36 @@ export async function createProject({
   }
 }
 
-export async function fetchProjects(orgId: string) {
-  const { userId } = await auth();
+export async function getProject(projectId: string) {
+  const { userId, orgId } = await auth();
   try {
     await userValidation(userId);
-
-    const projects = await prisma.project.findMany({
+    const project = await prisma.project.findUnique({
       where: {
-        organizationId: orgId,
+        id: projectId,
       },
-      orderBy: {
-        createdAt: "desc",
+      include: {
+        sprints: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
 
-    return projects;
+    if (!project) {
+      throw new Error("Project not found");
+    }
+
+    // Verify project belongs to the organization
+    if (project.organizationId !== orgId) {
+      return null;
+    }
+
+    return project;
   } catch (error: any) {
     console.log(error);
-    throw new Error("Error getting project: " + error.message);
+    throw new Error("Error getting the project: " + error.message);
   }
 }
 
