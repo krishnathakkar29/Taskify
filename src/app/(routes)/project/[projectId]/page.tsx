@@ -3,7 +3,6 @@ import { getProject } from "../../../../../actions/project";
 import { notFound } from "next/navigation";
 import SprintCreationForm from "@/components/Projects/create-sprint";
 import SprintBoard from "@/components/Projects/sprint-board";
-
 type Params = {
   projectId: string;
 };
