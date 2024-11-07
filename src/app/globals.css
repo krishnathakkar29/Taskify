@@ -97,3 +97,9 @@ body {
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.wmde-markdown ul {
+  list-style-type: disc;
+  padding-left: 15px !important;
+  color: white;
+}

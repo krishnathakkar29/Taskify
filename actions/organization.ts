@@ -62,3 +62,41 @@ export async function fetchProjects(orgId: string) {
     throw new Error("Error getting project: " + error.message);
   }
 }
+
+export async function getOrganizationUsers(orgId: string) {
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: userId },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const client = await clerkClient();
+  const organizationMemberships =
+    await client.organizations.getOrganizationMembershipList({
+      organizationId: orgId,
+    });
+
+  const userIds = organizationMemberships.data.map(
+    (membership) => membership?.publicUserData?.userId
+  ) as string[];
+
+  if (!userIds) {
+    throw new Error("user id not found");
+  }
+  const users = await prisma.user.findMany({
+    where: {
+      clerkId: {
+        in: userIds,
+      },
+    },
+  });
+  console.log(users);
+  return users;
+}
