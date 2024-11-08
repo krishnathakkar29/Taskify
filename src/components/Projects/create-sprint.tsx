@@ -8,22 +8,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import useFetch from "@/hooks/use-fetch";
+import { sprintSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDays, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { DateRange } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { createSprint } from "../../../actions/sprint";
 import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
 import { Card, CardContent } from "../ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Calendar } from "../ui/calendar";
-import { DateRange } from "react-day-picker";
-import { cn } from "@/lib/utils";
-import { sprintSchema } from "@/lib/schema";
-import useFetch from "@/hooks/use-fetch";
-import { createSprint } from "../../../actions/sprint";
-import { useRouter } from "next/navigation";
 
 type Props = {
   projectTitle: string;
@@ -98,9 +97,6 @@ const SprintCreationForm = ({
                         <FormControl>
                           <Input placeholder="name" {...field} />
                         </FormControl>
-                        {/* <FormDescription>
-                        This is your public display name.
-                        </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
@@ -188,14 +184,6 @@ const SprintCreationForm = ({
                               //   day_range_middle:
                               //     "aria-selected:bg-blue-100 aria-selected:text-blue-900",
                               //   day_hidden: "invisible",
-                              // }}
-                              // defaultMonth={date?.from}
-                              // selected={date}
-                              // onSelect={(range) => {
-                              //   if (range?.from && range?.to) {
-                              //     setDate(range);
-                              //     field.onChange(range);
-                              //   }
                               // }}
                               disabled={[{ before: new Date() }]}
                               defaultMonth={date?.from}

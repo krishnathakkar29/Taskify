@@ -36,6 +36,7 @@ import MDEditor from "@uiw/react-md-editor";
 import { z } from "zod";
 import { IssueStatus } from "@prisma/client";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 type Props = {
   isOpen: boolean;
@@ -145,7 +146,13 @@ const IssueCreationDrawer = ({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a verified email to display" />
+                        {usersLoading ? (
+                          <span>
+                            <Loader2 className="animate-spin" />
+                          </span>
+                        ) : (
+                          <SelectValue placeholder="Select a employee to assign the issue" />
+                        )}
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
