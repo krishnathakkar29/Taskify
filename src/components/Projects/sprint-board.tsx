@@ -1,5 +1,5 @@
 "use client";
-import { IssueStatus, Sprint } from "@prisma/client";
+import { Issue, IssueStatus, Sprint, User } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import SprintManager from "./sprint-manager";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
@@ -12,11 +12,17 @@ import { getIssuesForSprint, updateIssueOrder } from "../../../actions/issue";
 import { BarLoader } from "react-spinners";
 import IssueCard from "./issue-card";
 import { toast } from "sonner";
+import BoardFilters from "./board-filters";
 
 type Props = {
   sprints: Sprint[];
   projectId: string;
   orgId: string;
+};
+
+export type typeIssue = Issue & {
+  assignee: User | null;
+  reporter: User;
 };
 
 function reorder(list: any, startIndex: number, endIndex: number) {
@@ -43,7 +49,13 @@ const SprintBoard = ({ sprints, projectId, orgId }: Props) => {
     setData: setIssues,
   } = useFetch(getIssuesForSprint);
 
-  const [filteredIssues, setFilteredIssues] = useState(issues);
+  const [filteredIssues, setFilteredIssues] = useState<typeIssue[] | undefined>(
+    issues
+  );
+
+  const handleFilterChange = (newFilteredIssues: any) => {
+    setFilteredIssues(newFilteredIssues);
+  };
 
   useEffect(() => {
     if (currentSprint.id) {
@@ -145,6 +157,10 @@ const SprintBoard = ({ sprints, projectId, orgId }: Props) => {
         projectId={projectId}
       />
 
+      {issues && !issuesLoading && (
+        <BoardFilters issues={issues} onFilterChange={handleFilterChange} />
+      )}
+
       {updateIssuesError && (
         <p className="text-red-500 mt-2">{updateIssuesError.message}</p>
       )}
@@ -165,7 +181,7 @@ const SprintBoard = ({ sprints, projectId, orgId }: Props) => {
                   <h3 className="font-semibold mb-2 text-center">
                     {column.name}
                   </h3>
-                  {issues
+                  {filteredIssues
                     ?.filter((issue) => issue.status == column.key)
                     .map((item, index) => (
                       <Draggable
